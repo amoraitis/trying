@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 /**
  * Download the SQLite package: https://bitbucket.org/xerial/sqlite-jdbc/downloads/sqlite-jdbc-3.16.1.jar
+ * SQLite viewer@ https://sqliteonline.com/
  * Tutorial: 
  * TODO: Fix methods to be reusable
  * @author tasos
@@ -21,19 +22,36 @@ public class mydemoDB {
 	private final static File currentFilePath = new File(mydemoDB.class.getProtectionDomain()
 			.getCodeSource().getLocation().getPath());
 	
-	private static final String DBFOLDER = currentFilePath.getParentFile()+ File.separator+"db"+File.separator;
+	private static String DBFOLDER = currentFilePath.getParentFile()+ File.separator+"db"+File.separator;
 	
 	public static void main(String[] args) {
+		if(DBFOLDER.contains("%cf"))
+			fixPath();
 		System.out.println(DBFOLDER);
 		/*for(double i=0; i<7.0; i++){
-			insertData("mywarehouses",34.0+i);
+			insertData("test.db", "warehouses", "mywarehouses", 34.0+i);
 		}*/
-		delete(3,25);
-		//queryAll();
+		//deleteBetween("test.db",3,53,"warehouses");
+		queryAll("test.db", "warehouses");
 		
 		
 	}
 	
+	private static void fixPath() {
+		int start=0,end=0;
+		for(int i=0; i<DBFOLDER.length(); i++){
+			if(DBFOLDER.substring(i, i+6).equals("%cf%84")){
+				start=i;
+			}else if (DBFOLDER.substring(i, i+1).equals("2")) {
+				end=i+1;
+				break;
+			}
+		}
+		String substr= DBFOLDER.substring(start,end);
+		DBFOLDER=DBFOLDER.replace(substr, "τασος");
+		System.out.println(DBFOLDER);
+	}
+
 	private static void connect(String filename){
 		if(connection!=null)return;
 		try{
@@ -57,9 +75,16 @@ public class mydemoDB {
         }
 	}
 	
-	public static void delete(int idmin, int idmax){
-		String sql = "DELETE FROM warehouses WHERE id > ? AND id < ?";
-		connect("test.db");
+	/**
+	 * Deletes table rows by id starting from idmin ending to idmax
+	 * @param db to edit
+	 * @param idmin minid to delete
+	 * @param idmax maxid to delete
+	 * @param table to edit
+	 */
+	public static void deleteBetween(String db, int idmin, int idmax, String table){
+		String sql = "DELETE FROM " + table+ " WHERE id >= ? AND id <= ?";
+		connect(db);
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
  
             // set the corresponding param
@@ -75,9 +100,14 @@ public class mydemoDB {
         }
 	}
 	
-	public static void queryAll(){
-		 String sql = "SELECT id, name, capacity FROM warehouses";
-	        connect("test.db");
+	/**
+	 * Prints a tab
+	 * @param db to query
+	 * @param table for query
+	 */
+	public static void queryAll(String db, String table){
+		 String sql = "SELECT id, name, capacity FROM "+table;
+	        connect(db);
 	        try (Statement stmt  = connection.createStatement();
 	             ResultSet rs    = stmt.executeQuery(sql)){
 	            
@@ -102,11 +132,11 @@ public class mydemoDB {
 	 * @param firstParam
 	 * @param secondParam
 	 */
-	public static void insertData(String firstParam, double secondParam){
-		String sql = "INSERT INTO warehouses(name,capacity) VALUES(?,?)";
-		connect("test.db");
+	public static void insertData(String db, String table, String firstParam, double secondParam){
+		String sql = "INSERT INTO "+table+"(name,capacity) VALUES(?,?)";
+		connect(db);
         try (
-                PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, firstParam);
             pstmt.setDouble(2, secondParam);
             pstmt.executeUpdate();
