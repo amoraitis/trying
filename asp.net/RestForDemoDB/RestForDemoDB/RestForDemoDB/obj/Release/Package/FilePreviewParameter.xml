@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="RestForDemoDB20170408114246" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\τασος\\Documents\\trying\\asp\.net\\RestForDemoDB\\RestForDemoDB\\RestForDemoDB\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\τασος\\Documents\\trying\\asp\.net\\RestForDemoDB\\RestForDemoDB\\RestForDemoDB\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="RestForDemoDBContext-Web.config Connection String" description="" value="Data Source=demodbs;Initial Catalog=demojava;User ID=amoraitis;Password=Tasosmor#7;Connect Timeout=30" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\τασος\\Documents\\trying\\asp\.net\\RestForDemoDB\\RestForDemoDB\\RestForDemoDB\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RestForDemoDBContext']/@connectionString" />
+  </parameter>
+</parameters>
