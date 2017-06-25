@@ -9,21 +9,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 
 public class Extraction extends Thread {
-	private String html, site;
-	public Extraction(String html,String site){
+	private String html, name;
+	private Site site;
+	public Extraction(String html,String name){
 		this.html=html;
-		this.site=site;
+		this.name=name;
 	}
 	@Override
 	public void run() {
 		Document document = Jsoup.parse(html);
-		ConnectionToSQL connectionToSQL = new ConnectionToSQL(site, getJson(site, extractLinks(document)).toString(), getJson("photos", extractPhotos(document)).toString());
-		connectionToSQL.start();
-		try {
-	      connectionToSQL.join();
-	    } catch (InterruptedException e) {
-	      System.err.println("Not ended thread!");
-	    }
+		site = new Site(name,getJson("links", extractLinks(document)).toString(),getJson("photos", extractPhotos(document)).toString());
 	}
 	
 	private ArrayList<String> extractLinks(Document document) {
@@ -43,5 +38,7 @@ public class Extraction extends Thread {
 		myJsonObject.put(name, linksJSON);
 		return myJsonObject;
 	}
-	
+	public Site getSite( ) {
+		return this.site;
+  }
 }

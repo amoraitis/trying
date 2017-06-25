@@ -23,6 +23,8 @@ public class ConnectionToSQL extends Thread{
 	private static Connection connection=null;
 	private final static File currentFilePath = new File(ConnectionToSQL.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	private static String DBFOLDER = currentFilePath.getParentFile().getParentFile()+ File.separator+"db"+File.separator;
+
+  private Site site;
 	
 	public ConnectionToSQL(String name, String links, String images) {
 		this.name= name;
@@ -33,20 +35,32 @@ public class ConnectionToSQL extends Thread{
 	public ConnectionToSQL(String name) {
 		this.name = name;
 	}
+	
+	@Override
+	public synchronized void start() {
+		if(DBFOLDER.contains("%cf"))
+			fixPath();
+		//System.out.println(DBFOLDER);
+		//queryAll("extracted_sites.db", "links");
+		//deleteBetween("extracted_sites.db", 2, 3, "links");
+		if(links==null){
+			site=querySite("extracted_sites.db", "links", name);
+		}
+	}
 
 	@Override
 	public void run() {
-		if(DBFOLDER.contains("%cf"))
-			fixPath();
-		System.out.println(DBFOLDER);
-		//queryAll("extracted_sites.db", "links");
-		querySite("extracted_sites.db", "links", name);
+		insertData("extracted_sites.db", "links", name, links, images);
 		//insertData("extracted_sites.db", "links", name, links, images);
 		/*for(double i=0; i<7.0; i++){
 			insertData("test.db", "warehouses", "mywarehouses", 34.0+i);
 		}*/
-		//deleteBetween("extracted_sites.db",3,4,"links");
+		
 		//queryAll("test.db", "warehouses");		
+	}
+	
+	public Site getSite() {
+		return this.site;
 	}
 	
 	private static void fixPath() {
@@ -72,7 +86,7 @@ public class ConnectionToSQL extends Thread{
             Class.forName("org.sqlite.JDBC");
             // create a connection to the database
             connection = DriverManager.getConnection(url);
-            System.out.println("Connection to SQLite has been established.");
+            //System.out.println("Connection to SQLite has been established.");
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		} 
@@ -125,10 +139,10 @@ public class ConnectionToSQL extends Thread{
             	String name = rs.getString("name");
             	String links = rs.getString("links");
             	String photos = rs.getString("photos");
-                System.out.println(id +  "\t" + 
+                /*System.out.println(id +  "\t" + 
                                    name + "\t" +
                                    links + "\t" +
-                                   photos);
+                                   photos);*/
              return   new Site(name,links,photos);
             }
         } catch (SQLException e) {
@@ -232,5 +246,9 @@ public class ConnectionToSQL extends Thread{
     		}finally {
                 close();
             }
+    }
+    public void setLinksPhotos(String links,String photos) {
+    	this.links = links;
+    	this.images = photos;
     }
 }

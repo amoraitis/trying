@@ -51,13 +51,6 @@ public class SiteDownloader extends Thread{
 	}
 	
 	private String getSiteCorrect() {
-		System.out.println(site);
-		String[] site_dot = site.split(".");
-		System.out.println(site.contains(".")+"\t" + site_dot.length);
-		for(String e:site_dot){
-			System.out.println(e);
-		}
-		//site = site_dot[0];
 		return site;
 	}
   }
