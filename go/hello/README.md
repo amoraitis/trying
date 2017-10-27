@@ -1,0 +1,1 @@
+Learning go syntax from [GObyexample.com](https://gobyexample.com)
