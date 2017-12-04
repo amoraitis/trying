@@ -43,4 +43,12 @@ func main() {
 		}
 	}
 	fmt.Println("2d: ", twoD)
+
+	myArray := [2]string{"I", "am"}
+	fmt.Println("My array", myArray)
+	fromArray := myArray[:]
+	fmt.Println("Slice from array:", fromArray)
+	extendedSlice := make([]string, len(fromArray)+1, cap(fromArray)+20)
+	copy(extendedSlice, fromArray)
+	fmt.Println("Extended slc", extendedSlice)
 }
