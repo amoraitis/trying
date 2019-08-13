@@ -1,0 +1,59 @@
+{
+  "$values": [
+    {
+      "QuizId": 1,
+      "Title": "C# and OOP",
+      "Description": "Questions about the C# language and objectoriented programming.",
+      "Questions": {
+        "$values": [
+          {
+            "QuestionId": 1,
+            "Text": "Which modifier would you apply to a type's member to allow only code within that type access to it?",
+            "AnswerA": "internal",
+            "AnswerB": "protected",
+            "AnswerC": "private",
+            "AnswerD": "public",
+            "CorrectAnswer": "C"
+          },
+          {
+            "QuestionId": 2,
+            "Text": "Which keyword would you apply to a type's field to prevent its value from changing after an instance of the type has been created?",
+            "AnswerA": "const",
+            "AnswerB": "readonly",
+            "AnswerC": "static",
+            "AnswerD": "protected",
+            "CorrectAnswer": "B"
+          }
+
+        ]
+      }
+    },
+    {
+      "QuizId": 2,
+      "Title": "File I/O",
+      "Description": "Questions about the file input/output features of the .NET Framework including serialization.",
+      "Questions": {
+        "$values": [
+          {
+            "QuestionId": 1,
+            "Text": "What are the requirements for a type to be serialized by using the BinaryFormatter?",
+            "AnswerA": "Apply [Serializable] to the type.",
+            "AnswerB": "Apply [Serializable] to the type and make all fields public.",
+            "AnswerC": "Ensure the type is public with a parameterless contructor.",
+            "AnswerD": "Ensure the type is public with a parameterless contructor and make any fields you want to include public.",
+            "CorrectAnswer": "A"
+          },
+          {
+            "QuestionId": 2,
+            "Text": "What are the requirements for a type to be serialized by using the BinaryFormatter?",
+            "AnswerA": "Apply [Serializable] to the type.",
+            "AnswerB": "Apply [Serializable] to the type and make all fields public.",
+            "AnswerC": "Ensure the type is public with a parameterless contructor.",
+            "AnswerD": "Ensure the type is public with a parameterless contructor and make any fields you want to include public.",
+            "CorrectAnswer": "B"
+          }
+        ]
+      }
+    }
+  ]
+}

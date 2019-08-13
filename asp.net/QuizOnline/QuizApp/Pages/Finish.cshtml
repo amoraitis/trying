@@ -1,0 +1,38 @@
+﻿@page
+@model QuizOnline.App.Pages.FinishModel
+@{
+    ViewBag.Title = "Finish";
+}
+<div class="jumbotron">
+    <h2>Finish</h2>
+    <p>
+        You scored @Model.FinishViewModel.CorrectAnswers out of @Model.FinishViewModel.Quiz.Questions.Count
+    </p>
+</div>
+<div class="row">
+    <table class="table">
+        <tr>
+            <th>Question</th>
+            <th>Correct Answer</th>
+            <th>Your Answer</th>
+        </tr>
+        @for (int i = 0; i < Model.FinishViewModel.Quiz.Questions.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.FinishViewModel.Quiz.
+                    Questions.ToList()[i].Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.FinishViewModel.Quiz.
+                    Questions.ToList()[i].CorrectAnswer)
+                </td>
+                Chapter 16
+                [ 455 ]
+                <td>
+                    @Html.DisplayFor(modelItem => Model.FinishViewModel.Answers[i])
+                </td>
+            </tr>
+        }
+    </table>
+</div>

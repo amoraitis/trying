@@ -1,0 +1,13 @@
+﻿@page "{id:int}"
+@model TakeQuizModel
+@{
+    ViewBag.Title = $"{Model.Quiz.Title} Quiz";
+}
+<div class="jumbotron">
+    <h2>@Model.Quiz.Title Quiz</h2>
+    <p>@Model.Quiz.Description</p>
+    <p>This quiz has @Model.Quiz.Questions.Count questions.</p>
+    <p>
+        <a class="btn btn-success" asp-page="Question" asp-route-id="@Model.Quiz.Questions.ElementAt(0).QuestionId">Start &raquo;</a>
+    </p>
+</div>

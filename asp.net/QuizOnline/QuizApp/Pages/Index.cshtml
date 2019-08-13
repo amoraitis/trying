@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+
+@{
+    int x = 0;
+}
+<div class="row">
+    @foreach (var item in Model.Quizzes)
+    {
+        x++;
+        <div class="col-md-6 col-sm-12">
+            <h2>@item.Title</h2>
+            <p>@item.Description</p>
+                <a class="btn btn-default" asp-page="TakeQuiz" asp-route-id="@item.QuizId">Take Quiz</a>
+        </div>
+        @if (x % 2 == 0)
+        {
+        @:</div><div class="row">
+        }
+    }
+</div>
+
