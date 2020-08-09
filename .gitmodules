@@ -1,0 +1,3 @@
+[submodule "databases/sql/learning-sql"]
+	path = databases/sql/learning-sql
+	url = https://github.com/amoraitis/learning-sql
